@@ -59,6 +59,8 @@
             --bs-gutter-x: 1.5rem;
             --bs-gutter-y: 1.5rem;
         }
+
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
             .card {
                 padding: 12px;
@@ -105,7 +107,7 @@
     <h2 class="mb-4">Top 50 Books we have</h2>
     <div class="row g-3">
         {% for book in books %}
-        <div class="col-12 col-sm-6 col-lg-4">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div class="card h-100 text-center">
                 <img src="{{ book['Image-URL-M'] }}" class="img-fluid" alt="Book cover">
                 <h6>{{ book['Book-Title'] }}</h6>

@@ -47,6 +47,19 @@
             color: #ff4d4d;
             font-weight: 500;
         }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .book-card {
+                width: 150px;
+                margin: 10px;
+            }
+        }
+        @media (max-width: 576px) {
+            .book-card {
+                width: 120px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -119,12 +132,6 @@ $(document).ready(function(){
     $(document).on('click', '#suggestions div', function(){
         $('#user_input').val($(this).text());
         $('#suggestions').hide();
-    });
-
-    $(document).click(function(e) {
-        if (!$(e.target).closest('#user_input, #suggestions').length) {
-            $('#suggestions').hide();
-        }
     });
 });
 </script>
