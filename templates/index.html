@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top 50 Books</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { 
+            background-color: #121212; 
+            color: #e0e0e0; 
+            padding-bottom: 20px;
+        }
+        .card {
+            background-color: #1f1f1f;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            height: 180px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background-color: #2d2d2d;
+            padding: 8px;
+        }
+        .card h6 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card small {
+            display: block;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            color: #bbbbbb;
+        }
+        h2 { 
+            color: #ffffff;
+            margin-bottom: 25px !important;
+            padding-top: 10px;
+        }
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .card {
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+            .card img {
+                height: 160px;
+                margin-bottom: 10px;
+            }
+            .row {
+                --bs-gutter-x: 1rem;
+                --bs-gutter-y: 1rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .card {
+                padding: 10px;
+            }
+            .card img {
+                height: 140px;
+            }
+            .row {
+                --bs-gutter-x: 0.8rem;
+                --bs-gutter-y: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Book Recommender</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.path == '/recommend' %}active{% endif %}" href="/recommend">Recommend</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.path == '/coming-soon' %}active{% endif %}" href="/coming-soon">Coming Soon</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Top 50 Books we have</h2>
+    <div class="row g-3">
+        {% for book in books %}
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card h-100 text-center">
+                <img src="{{ book['Image-URL-M'] }}" class="img-fluid" alt="Book cover">
+                <h6>{{ book['Book-Title'] }}</h6>
+                <small><strong>Author:</strong> {{ book['Book-Author'] }}</small>
+                <small><strong>Year:</strong> {{ book['Year-Of-Publication'] }}</small>
+                <small><strong>Rating:</strong> {{ book['avg_rating'] | round(1) }}</small>
+                <small><strong>Votes:</strong> {{ book['num_rating'] }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
