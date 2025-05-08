@@ -2,62 +2,194 @@
 <html>
 <head>
     <title>Book Recommendation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #121212; color: #e0e0e0; }
-        .navbar, .form-control, .btn { border-radius: 10px; }
-        .form-control, .autocomplete-suggestions, .btn-primary { background-color: #1f1f1f; color: #fff; border: none; }
-        .autocomplete-suggestions { background-color: #1f1f1f; border: 1px solid #333; }
-        .autocomplete-suggestions div:hover { background-color: #333; }
+        body { 
+            background-color: #121212; 
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+        h4 {
+            font-size: 1.4rem;
+            margin: 1.8rem 0 1rem;
+        }
+        .form-label {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .form-control {
+            font-size: 1rem;
+            padding: 0.75rem;
+            height: auto;
+        }
+        .btn-primary {
+            font-size: 1.1rem;
+            padding: 0.6rem 1.5rem;
+            margin-top: 0.5rem;
+        }
         .book-card {
-            width: 180px;
+            min-width: 160px;
+            width: 160px;
             background-color: #1f1f1f;
             color: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            padding: 10px;
-            margin: 0 10px;
+            padding: 12px;
+            margin: 0 8px;
             text-align: center;
+            flex: 0 0 auto;
         }
-        .book-img { height: 140px; object-fit: contain; margin-bottom: 10px; }
+        .book-img {
+            height: 140px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+        .book-info strong {
+            font-size: 1rem;
+            line-height: 1.3;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .book-info small {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            display: block;
+            color: #bbbbbb;
+        }
         .scroll-container {
             display: flex;
-            justify-content: center;
             overflow-x: auto;
-            padding: 20px 0;
+            padding: 15px 5px;
+            scrollbar-width: thin;
+            scrollbar-color: #333 #1f1f1f;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scroll-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background: #1f1f1f;
+            border-radius: 10px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background-color: #333;
+            border-radius: 10px;
         }
         .alert-custom {
             background-color: #1f1f1f;
             border-left: 6px solid #ff5252;
-            padding: 20px;
+            padding: 1.2rem;
             border-radius: 10px;
+            margin-top: 1.5rem;
         }
         .alert-custom .funny-line {
             font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
+            font-size: 1.2rem;
             color: #f1c40f;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
         }
         .alert-custom .error-line {
             font-family: 'Roboto', sans-serif;
-            font-size: 15px;
+            font-size: 1rem;
             color: #ff4d4d;
             font-weight: 500;
+            line-height: 1.4;
         }
-
-        /* Mobile responsiveness */
+        .autocomplete-suggestions {
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            position: absolute;
+            width: calc(100% - 30px);
+            z-index: 1000;
+            font-size: 1rem;
+        }
+        .autocomplete-suggestions div {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #333;
+        }
+        .autocomplete-suggestions div:hover {
+            background-color: #333;
+        }
+        .navbar-brand {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
         @media (max-width: 768px) {
+            body {
+                font-size: 1.05rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            h4 {
+                font-size: 1.3rem;
+            }
             .book-card {
-                width: 150px;
-                margin: 10px;
+                min-width: 140px;
+                width: 140px;
+                padding: 10px;
+            }
+            .book-img {
+                height: 120px;
             }
         }
         @media (max-width: 576px) {
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
+            h4 {
+                font-size: 1.2rem;
+                margin: 1.5rem 0 0.8rem;
+            }
+            .form-label {
+                font-size: 1rem;
+            }
             .book-card {
+                min-width: 130px;
+                width: 130px;
+                margin: 0 6px;
+            }
+            .book-img {
+                height: 110px;
+            }
+            .alert-custom {
+                padding: 1rem;
+            }
+            .alert-custom .funny-line {
+                font-size: 1.1rem;
+            }
+            .alert-custom .error-line {
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 400px) {
+            .book-card {
+                min-width: 120px;
                 width: 120px;
+            }
+            .book-img {
+                height: 100px;
             }
         }
     </style>
@@ -66,7 +198,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Book Recommender</a>
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link active" href="/recommend">Recommend</a></li>
@@ -76,26 +211,26 @@
     </div>
 </nav>
 
-<div class="container mt-4">
-    <h2>Get Book Recommendations</h2>
+<div class="container mt-3">
+    <h2 class="text-center">Get Book Recommendations</h2>
     <form method="post" autocomplete="off">
         <div class="mb-3 position-relative">
             <label for="user_input" class="form-label">Enter Book Name</label>
             <input type="text" class="form-control" id="user_input" name="user_input" required>
             <div id="suggestions" class="autocomplete-suggestions"></div>
         </div>
-        <button type="submit" class="btn btn-primary">Recommend</button>
+        <button type="submit" class="btn btn-primary w-100">Recommend</button>
     </form>
 
     {% if data %}
-        <h4 class="mt-5">Recommendations similar to "{{ user_input }}":</h4>
+        <h4 class="text-center">Similar to "{{ user_input }}"</h4>
         <div class="scroll-container">
             {% for book in data %}
             <div class="book-card">
                 <img src="{{ book[1] }}" class="book-img" alt="{{ book[0] }}">
                 <div class="book-info">
-                    <strong>{{ book[0] }}</strong><br>
-                    <small>{{ book[2] }}</small><br>
+                    <strong>{{ book[0] }}</strong>
+                    <small>{{ book[2] }}</small>
                     <small>{{ book[3] }}</small>
                 </div>
             </div>
@@ -103,18 +238,19 @@
         </div>
     {% elif user_input %}
         {% if not_found %}
-        <div class="alert-custom mt-4" role="alert">
+        <div class="alert-custom" role="alert">
             <div class="funny-line">
-                Don’t judge a book by its cover? Yeah, well… we did, cutie. Guess book couldn’t handle our standards!
+                Don't judge a book by its cover? Yeah, well... we did, cutie. Guess book couldn't handle our standards!
             </div>
             <div class="error-line">
-                Actually.. “{{ user_input }}” is not in our database. It hurts us more than you :(
+                Actually.. "{{ user_input }}" is not in our database. It hurts us more than you :(
             </div>
         </div>
         {% endif %}
     {% endif %}
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 $(document).ready(function(){
     $('#user_input').on('input', function(){
@@ -133,8 +269,13 @@ $(document).ready(function(){
         $('#user_input').val($(this).text());
         $('#suggestions').hide();
     });
+
+    $(document).click(function(e) {
+        if (!$(e.target).closest('#user_input, #suggestions').length) {
+            $('#suggestions').hide();
+        }
+    });
 });
 </script>
-
 </body>
 </html>

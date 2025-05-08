@@ -2,20 +2,21 @@
 <html>
 <head>
     <title>Top 50 Books</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body { 
             background-color: #121212; 
-            color: #e0e0e0; 
+            color: #e0e0e0;
             padding-bottom: 20px;
+            font-size: 1rem;
         }
         .card {
             background-color: #1f1f1f;
             color: #fff;
             border: none;
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px;
-            font-size: 14px;
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s;
@@ -32,7 +33,7 @@
             padding: 8px;
         }
         .card h6 {
-            font-size: 16px;
+            font-size: 1.1rem;
             margin-bottom: 8px;
             font-weight: 500;
             min-height: 40px;
@@ -45,46 +46,69 @@
             margin-bottom: 5px;
             line-height: 1.4;
             color: #bbbbbb;
+            font-size: 0.9rem;
         }
         h2 { 
             color: #ffffff;
             margin-bottom: 25px !important;
-            padding-top: 10px;
+            padding-top: 15px;
+            font-size: 1.8rem;
         }
         .container {
             padding-left: 15px;
             padding-right: 15px;
         }
-        .row {
-            --bs-gutter-x: 1.5rem;
-            --bs-gutter-y: 1.5rem;
+        .navbar-brand {
+            font-size: 1.3rem;
+            font-weight: 500;
         }
-
-        /* Mobile responsiveness */
+        .nav-link {
+            font-size: 1rem;
+            padding: 8px 15px !important;
+        }
         @media (max-width: 768px) {
+            body {
+                font-size: 1.05rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+                margin-bottom: 20px !important;
+            }
             .card {
-                padding: 12px;
-                margin-bottom: 15px;
+                padding: 15px;
             }
             .card img {
                 height: 160px;
-                margin-bottom: 10px;
             }
-            .row {
-                --bs-gutter-x: 1rem;
-                --bs-gutter-y: 1rem;
+            .card h6 {
+                font-size: 1.05rem;
             }
         }
         @media (max-width: 576px) {
+            h2 {
+                font-size: 1.5rem;
+                padding-top: 10px;
+            }
             .card {
-                padding: 10px;
+                padding: 12px;
+            }
+            .card img {
+                height: 150px;
+            }
+            .card h6 {
+                font-size: 1rem;
+                min-height: 36px;
+            }
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+        }
+        @media (max-width: 400px) {
+            h2 {
+                font-size: 1.4rem;
             }
             .card img {
                 height: 140px;
-            }
-            .row {
-                --bs-gutter-x: 0.8rem;
-                --bs-gutter-y: 0.8rem;
             }
         }
     </style>
@@ -93,7 +117,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Book Recommender</a>
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link {% if request.path == '/recommend' %}active{% endif %}" href="/recommend">Recommend</a></li>
@@ -103,11 +130,11 @@
     </div>
 </nav>
 
-<div class="container mt-4">
-    <h2 class="mb-4">Top 50 Books we have</h2>
+<div class="container mt-3">
+    <h2 class="mb-4 text-center">Top 50 Books</h2>
     <div class="row g-3">
         {% for book in books %}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="col-12 col-sm-6 col-lg-4">
             <div class="card h-100 text-center">
                 <img src="{{ book['Image-URL-M'] }}" class="img-fluid" alt="Book cover">
                 <h6>{{ book['Book-Title'] }}</h6>
@@ -120,5 +147,6 @@
         {% endfor %}
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
