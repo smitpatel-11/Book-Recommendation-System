@@ -239,11 +239,12 @@
     {% elif user_input %}
         {% if not_found %}
         <div class="alert-custom" role="alert">
-            <div class="funny-line">
-                Don't judge a book by its cover? Yeah, well... we did, cutie. Guess book couldn't handle our standards!
-            </div>
+        
             <div class="error-line">
-                Actually.. "{{ user_input }}" is not in our database. It hurts us more than you :(
+                Actually.. “{{ user_input }}” is not in our tiny database.
+            </div>
+            <div class="funny-line">
+                Smit wants to tell you 3 magical words:<br>Raise your standards
             </div>
         </div>
         {% endif %}
